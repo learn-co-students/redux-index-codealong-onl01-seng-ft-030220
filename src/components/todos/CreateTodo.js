@@ -13,25 +13,31 @@ class CreateTodo extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.props.addTodo(this.state)
-  }
-
-  handleChange(event) {
+    //Each time we submit a todo, we want to clear out the input. 
     this.setState({
-      text: event.target.value
-    });
+      text: '',
+    })
   }
 
-  render() {
-    return(
-      <div>
-        <form onSubmit={this.handleSubmit}>
-    	    <label>add todo</label>
-          <input type="text" onChange={(event) => this.handleChange(event)} value={this.state.text}/>
-          <input type="submit" />
-       </form>
-     </div>
-   );
-  }
+}
+
+handleChange(event) {
+  this.setState({
+    text: event.target.value
+  });
+}
+
+render() {
+  return (
+    <div>
+      <form onSubmit={this.handleSubmit}>
+        <label>add todo</label>
+        <input type="text" onChange={(event) => this.handleChange(event)} value={this.state.text} />
+        <input type="submit" />
+      </form>
+    </div>
+  );
+}
 };
 
 const mapDispatchToProps = dispatch => ({
