@@ -1,12 +1,57 @@
-export default function manageTodo(state = {
-  todos: [],
-}, action) {
-  switch (action.type) {
-    case 'ADD_TODO':
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-      return { todos: state.todos.concat(action.payload.text) };
+class CreateTodo extends Compnonent {
 
-    default:
-      return state;
+  constructor() {
+    super();
+    this.state = {
+      text: '',
+    };
   }
-}
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.addTodo(this.State)
+    this.setState({
+      text: '',
+    })
+  }
+
+  handleChange(event) {
+    this.setState({
+      text: event.target.value
+    });
+  }
+
+  render() {
+    return(
+      <div>
+        <form onSubmit={this.handleSubmit}>
+    	    <label>add todo</label>
+          <input type="text" onChange={(event) => this.handleChange(event)} value={this.state.text}/>
+          <input type="submit" />
+       </form>
+     </div>
+    );
+  }
+};
+
+const mapDispatchToProps = dispatch => ({
+  addTodo: formData => dispatch({ type: 'ADD_TODO', payload: formData })
+})
+
+export default connect(null, mapDispatchToProps)(CreateTodo);
+
+// export default function manageTodo(state = {
+//   todos: [],
+// }, action) {
+//   switch (action.type) {
+//     case 'ADD_TODO':
+
+//       return { todos: state.todos.concat(action.payload.text) };
+
+//     default:
+//       return state;
+//   }
+// }
